@@ -9,7 +9,7 @@
 @time: 2020/2/29 10:18 下午
 '''
 from No_101.__init__ import BiTrees, BiTree
-import copy
+# import copy
 
 class SortedArrayToBST(BiTrees):
     def __init__(self, array):
