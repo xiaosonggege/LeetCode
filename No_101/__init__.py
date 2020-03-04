@@ -55,10 +55,6 @@ class BiTree:
         self._data = data
         self._lchild = lchild
         self._rchild = rchild
-    def __enter__(self):
-        return self
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        return True
 
     data = BiTreeProperty('data')
     lchild = BiTreeProperty('lchild')

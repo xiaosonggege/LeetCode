@@ -18,8 +18,9 @@ class Sproperty:
     def __set__(self, instance, value):
         instance.__dict__[self._name] = BiTree(data=value)
 
-class SortedArrayToBST():
+class SortedArrayToBST(BiTree):
     def __init__(self, array):
+        super().__init__()
         self._array = array
         self._root = None
     root = Sproperty('root')
@@ -48,15 +49,9 @@ class SortedArrayToBST():
 
     def __call__(self, *args, **kwargs):
         self._buildtree()
-    # def __enter__(self):
-    #     return self
-    # def __exit__(self, exc_type, exc_val, exc_tb):
-    #     return True
 
 if __name__ == '__main__':
     l1 = [0, -3, -1, -10, 5, 9]
     s = SortedArrayToBST(l1)
     s()
-    print()
-    with SortedArrayToBST(l1) as s1:
-        s1()
+    print(s.__class__.mro())
