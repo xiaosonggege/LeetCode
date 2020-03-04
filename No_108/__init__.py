@@ -10,36 +10,53 @@
 '''
 from No_101.__init__ import BiTrees, BiTree
 import copy
+class Sproperty:
+    def __init__(self, name):
+        self._name = '_' + name
+    def __get__(self, instance, owner):
+        return instance.__dict__[self._name]
+    def __set__(self, instance, value):
+        instance.__dict__[self._name] = BiTree(data=value)
 
-class SortedArrayToBST(BiTrees):
+class SortedArrayToBST():
     def __init__(self, array):
-        super(SortedArrayToBST, self).__init__()
         self._array = array
+        self._root = None
+    root = Sproperty('root')
+
     def _buildtree(self):
         array = copy.deepcopy(self._array)
         while len(array):
             if not self.root:
-                self.root = BiTree(data=self._array.pop(0))
+                self.root = array.pop(0)
             else:
                 point = self.root
+                assert isinstance(point, BiTree)
                 while True:
-                    if self._array[0] <= point.data:
+                    if array[0] <= point.data:
                         if not point.lchild:
-                            point.lchild = BiTree(data=self._array.pop(0))
+                            point.lchild = BiTree(data=array.pop(0))
                             break
                         else:
                             point = point.lchild
                     else:
                         if not point.rchild:
-                            point.rchild = BiTree(data=self._array.pop(0))
+                            point.rchild = BiTree(data=array.pop(0))
                             break
                         else:
                             point = point.rchild
 
     def __call__(self, *args, **kwargs):
         self._buildtree()
+    # def __enter__(self):
+    #     return self
+    # def __exit__(self, exc_type, exc_val, exc_tb):
+    #     return True
 
 if __name__ == '__main__':
-    l1 = [-10, -3, 0, 5, 9]
-    for i in SortedArrayToBST(l1)():
-        print(i)
+    l1 = [0, -3, -1, -10, 5, 9]
+    s = SortedArrayToBST(l1)
+    s()
+    print()
+    with SortedArrayToBST(l1) as s1:
+        s1()
