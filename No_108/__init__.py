@@ -10,6 +10,7 @@
 '''
 from No_101.__init__ import BiTrees, BiTree
 import copy
+import numpy as np
 class Sproperty:
     def __init__(self, name):
         self._name = '_' + name
