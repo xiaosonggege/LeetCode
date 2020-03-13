@@ -19,10 +19,20 @@ class BiTreeProperty:
     def __set__(self, instance, value):
         instance.__dict__[self._name] = value
 
+class BiTree:
+    def __init__(self, data=0, lchild=None, rchild=None):
+        self._data = data
+        self._lchild = lchild
+        self._rchild = rchild
+
+    data = BiTreeProperty('data')
+    lchild = BiTreeProperty('lchild')
+    rchild = BiTreeProperty('rchild')
+
 class BiTreesProperty:
     def __init__(self, name):
         self._name = '_' + name
-    def __get__(self, instance, owner):
+    def __get__(self, instance, owner)->BiTree:
         return instance.__dict__[self._name]
     def __set__(self, instance, value:tuple):
         value = list(value)
@@ -49,16 +59,6 @@ class BiTreesProperty:
                     stack.pop(0)
                 else: #左子树为空时
                     flag = 0
-
-class BiTree:
-    def __init__(self, data=0, lchild=None, rchild=None):
-        self._data = data
-        self._lchild = lchild
-        self._rchild = rchild
-
-    data = BiTreeProperty('data')
-    lchild = BiTreeProperty('lchild')
-    rchild = BiTreeProperty('rchild')
 
 class BiTrees:
     root = BiTreesProperty('root')
