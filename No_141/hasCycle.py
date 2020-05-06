@@ -52,9 +52,24 @@ class LinkedList:
                 if node is None:
                     print('False')
 
+    def _hascycle_doublepoint(self): #快慢双指针法
+        fast = self._headNode.next #两倍速移动
+        slow = self._headNode.next #一倍速移动
+        while fast.next is not None:
+            if fast == slow:
+                print('True')
+                break
+            else:
+                fast = fast.next.next
+                slow = slow.next
+        if fast.next is None and slow:
+            print('False')
+
+
     def __enter__(self):
         self._create()
         self._hascycle()
+        self._hascycle_doublepoint()
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         pass
