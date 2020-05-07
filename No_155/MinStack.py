@@ -32,7 +32,7 @@ class MinStack:
         if self._top.next is None:
             print('空栈')
             self._min = 0
-            return
+            return -1
         else:
             return self._top.next.val
 
@@ -50,4 +50,5 @@ if __name__ == '__main__':
     s.pop()
     s.pop()
     print('栈顶元素:{0}, 最小元素:{1}'.format(s.top(), s.getmin()))
+
 
