@@ -38,10 +38,11 @@ class MajorityElement:
 
     def merger_sort(self, nums:list)->list:
         if len(nums) > 1:
-            nums_l, nums_r = nums[:len(nums)//2+1], nums[len(nums)//2+1:]
-            self.merger_sort(nums_l)
-            self.merger_sort(nums_r)
-        nums = self.merger_sort_sub(nums1=nums_l, nums2=nums_r)
+            nums_l, nums_r = nums[:len(nums)//2], nums[len(nums)//2:]
+            nums_l = self.merger_sort(nums_l)
+            nums_r = self.merger_sort(nums_r)
+            nums = self.merger_sort_sub(nums1=nums_l, nums2=nums_r)
+        return nums
 
     def mE(self):
         return self.insert_sort()[self.insert_sort().__len__()//2]
@@ -51,4 +52,6 @@ if __name__ == '__main__':
     m = MajorityElement(nums=[2, 1, 5, 3, 6, 4, 7, 2, 2, 2, 2, 2])
     # print(m.insert_sort())
     # print(m.mE())
-    print(m.merger_sort_sub(nums1=[1, 2, 3, 5], nums2=[2, 4, 6, 7]))
+    # print(m.merger_sort_sub(nums1=[1, 2, 3, 5], nums2=[2, 4, 6, 7]))
+    print(m.merger_sort(nums=[2, 1, 5, 3, 6, 4, 7, 2, 2, 2, 2, 2]))
+    print(m.merger_sort(nums=[5, 4, 3, 2, 1, 7, 4, 3]))
