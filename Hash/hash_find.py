@@ -9,8 +9,7 @@
 @time: 2020/5/13 6:12 下午
 '''
 
-
-class HashTable:
+class HashTable1:
     """
     线性探测法的hash查找
     """
@@ -80,8 +79,14 @@ class HashTable:
     def __setitem__(self, key, value):
         return self._put(key=key, value=value)
 
+class HashTable2:
+    """
+    拉链法的hash查找
+    """
+    pass
+
 if __name__ == '__main__':
-    H = HashTable(size=11)
+    H = HashTable1(size=11)
     H[54] = "cat" #余10
     H[26] = "dog" #余4
     H[93] = "lion" #余5
