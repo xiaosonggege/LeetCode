@@ -48,7 +48,8 @@ class HashTable:
             else: #发生冲突
                 #解决冲突
                 new_hashvalue = self.rehash(oldhash=hashvalue, size=self._size)
-                while self._keys[new_hashvalue] is not None and self._keys[new_hashvalue] != key:
+                while self._keys[new_hashvalue] is not None and self._keys[new_hashvalue] != key \
+                        and new_hashvalue != hashvalue:
                     new_hashvalue = self.rehash(oldhash=new_hashvalue, size=self._size)
                 if self._keys[new_hashvalue] is None:
                     self._keys[new_hashvalue] = key
@@ -93,7 +94,7 @@ if __name__ == '__main__':
 
     print(H._keys)  # [77, 44, 55, 20, 26, 93, 17, None, None, 31, 54]
     print(H._values)  # ['bird', 'goat', 'pig', 'chicken', 'dog', 'lion', 'tiger', None, None, 'cow', 'cat']
-    print(H[20])  # 'chicken'
+    print(H[20])  # chicken
     H[20] = 'duck'
     print(H[20])  # duck
     print(H[99])  # None
