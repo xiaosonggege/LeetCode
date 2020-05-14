@@ -52,7 +52,10 @@ class HashTable1:
                     new_hashvalue = self.rehash(oldhash=new_hashvalue, size=self._size)
                 if self._keys[new_hashvalue] is None:
                     self._keys[new_hashvalue] = key
-                self._values[new_hashvalue] = value
+                if new_hashvalue != hashvalue:
+                    self._values[new_hashvalue] = value
+                else:
+                    print('hash表已满,无法插入!')
 
     def _get(self, key):
         """
@@ -67,7 +70,8 @@ class HashTable1:
         else:
             #重新哈希
             new_hashvalue = self.rehash(oldhash=hashvalue, size=self._size)
-            while self._keys[new_hashvalue] != key and hashvalue != new_hashvalue:
+            while self._keys[new_hashvalue] is not None and self._keys[new_hashvalue] != key \
+                    and hashvalue != new_hashvalue:
                 new_hashvalue = self.rehash(oldhash=new_hashvalue, size=self._size)
             if self._keys[new_hashvalue] == key:
                 value = self._values[new_hashvalue]
