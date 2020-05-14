@@ -63,7 +63,6 @@ class HashTable1:
         """
         # 获得哈希函数值
         hashvalue = self.hashfunction(key=key, size=self._size)
-        # find = False
         value = None
         if self._keys[hashvalue] == key:
             value = self._values[hashvalue]
@@ -83,14 +82,89 @@ class HashTable1:
     def __setitem__(self, key, value):
         return self._put(key=key, value=value)
 
+class Node:
+    def __init__(self, data=None, next=None):
+        self.data = data
+        self.next = next
+
 class HashTable2:
     """
     拉链法的hash查找
     """
-    pass
+    def __init__(self, size:int):
+        self._size = size
+        self._keys = [None] * self._size #键
+
+    # hash函数可通过猴子补丁类外自行设计
+    def hashfunction(self, key, size) -> int:
+        """
+        哈希函数
+        """
+        return key % size
+
+    # 冲突函数可通过猴子补丁类外自行设计
+    def rehash(self, oldhash, size) -> int:
+        """
+        冲突解决函数
+        """
+        return (oldhash + 1) % size
+
+    def _put(self, key:int, value:Node):
+        """
+        哈希表建立
+        """
+        # 获得哈希函数值
+        hashvalue = self.hashfunction(key=key, size=self._size)
+        if self._keys[hashvalue] is None: #地址未存值
+            self._keys[hashvalue] = Node(data=value)
+        else: #地址存值
+            move = self._keys[hashvalue]
+            while move.next is not None:
+                move = move.next
+            move.next = Node(data=value)
+
+    def _get(self, key:int, value)->bool:
+        """
+        哈希表查找
+        """
+        # 获得哈希函数值
+        hashvalue = self.hashfunction(key=key, size=self._size)
+        move = self._keys[hashvalue]
+        while move:
+            if move.data == value:
+                return True
+            move = move.next
+        return False
+
+    def __eq__(self, other:tuple):
+        return self._get(key=other[0], value=other[-1])
+
+    def __setitem__(self, key, value):
+        self._put(key=key, value=value)
+
 
 if __name__ == '__main__':
-    H = HashTable1(size=11)
+    # H = HashTable1(size=11)
+    # H[54] = "cat" #余10
+    # H[26] = "dog" #余4
+    # H[93] = "lion" #余5
+    # H[17] = "tiger" #余6
+    # H[77] = "bird" #余0
+    # H[31] = "cow" #余9
+    # H[44] = "goat" #余0
+    # H[55] = "pig" #余0
+    # H[20] = "chicken" #余9
+    #
+    # print(H._keys)  # [77, 44, 55, 20, 26, 93, 17, None, None, 31, 54]
+    # print(H._values)  # ['bird', 'goat', 'pig', 'chicken', 'dog', 'lion', 'tiger', None, None, 'cow', 'cat']
+    # print(H[20])  # chicken
+    # H[20] = 'duck'
+    # print(H[20])  # duck
+    # print(H[99])  # None
+    # print(H[45]) # None
+    # print(H[44]) # goat
+
+    H = HashTable2(11)
     H[54] = "cat" #余10
     H[26] = "dog" #余4
     H[93] = "lion" #余5
@@ -100,12 +174,7 @@ if __name__ == '__main__':
     H[44] = "goat" #余0
     H[55] = "pig" #余0
     H[20] = "chicken" #余9
-
-    print(H._keys)  # [77, 44, 55, 20, 26, 93, 17, None, None, 31, 54]
-    print(H._values)  # ['bird', 'goat', 'pig', 'chicken', 'dog', 'lion', 'tiger', None, None, 'cow', 'cat']
-    print(H[20])  # chicken
-    H[20] = 'duck'
-    print(H[20])  # duck
-    print(H[99])  # None
-    print(H[45]) # None
-    print(H[44]) # goat
+    print(H == (20, 'chicken'))  # duck
+    print(H == (99, None)) # None
+    print(H == (45, None)) # None
+    print(H == (44, 'goat')) # goat
