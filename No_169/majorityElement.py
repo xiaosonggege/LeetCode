@@ -58,7 +58,7 @@ class MajorityElement:
         '''
         if len(nums) == 1:
             return nums, 0
-        i, j = 1, len(nums)-1
+        i, j = 0, len(nums)-1
         while (i != j):
             if nums[j] < nums[0]:
                 if nums[i] > nums[0]:
@@ -68,10 +68,7 @@ class MajorityElement:
                     i += 1
             else:
                 j -= 1
-        if nums[i] < nums[0]:
-            nums[i], nums[0] = nums[0], nums[i]
-        else:
-            j -= 1
+        nums[i], nums[0] = nums[0], nums[i]
         return nums, j
 
     def fast_sort(self, nums:list)->list:
@@ -98,4 +95,5 @@ if __name__ == '__main__':
     # print(m.merger_sort(nums=[5, 4, 3, 2, 1, 7, 4, 3]))
     print(m.fast_sort(nums=[5, 4, 3, 2, 1, 2, 4, 3]))
     print(m.fast_sort(nums=[1, 2, 3, 5, 4]))
+    print(m.fast_sort(nums=[3, 2, 4, 1, 5, 6, 7, 2, 4, 3]))
     
