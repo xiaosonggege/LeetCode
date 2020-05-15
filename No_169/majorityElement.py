@@ -19,7 +19,6 @@ class MajorityElement:
         插入排序
         '''
         nums = copy.deepcopy(self._nums)
-        flag = nums[0]
         for i in range(1, len(self._nums)):
             flag = nums[i]
             for j in range(i-1, -1, -1):
