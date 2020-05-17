@@ -64,12 +64,30 @@ class Rotate:
             time += 1
         return nums
 
-    def rotate_func4(self, nums:list, k:int)->list: #环形队列队头队尾指针移动o(n),o(1)
-        pass
+    def rotate_func4(self, k:int)->None: #环形队列队头队尾指针移动o(n),o(1)
+        l = self._nums.__len__()
+        if not hasattr(self, '_start'):
+            self._start = 0
+        if not hasattr(self, '_end'):
+            self._end = l - 1
+        self._start += l - k
+        self._end  = (self._end + l - k) % l
+
+    def rotate_func4_read_func(self)->list:
+        l = self._nums.__len__()
+        nums = []
+        start = self._start
+        while start != self._end:
+            nums.append(self._nums[start])
+            start = (start + 1) % l
+        nums.append(self._nums[start])
+        return nums
 
     def __enter__(self):
-        return self.rotate_func1(self._nums, self._k), self.rotate_func2(self._nums, self._k), \
-               self.rotate_func3(self._nums, self._k)
+        self.rotate_func4(k=5)
+        return self.rotate_func4_read_func()
+        # return self.rotate_func1(self._nums, self._k), self.rotate_func2(self._nums, self._k), \
+        #        self.rotate_func3(self._nums, self._k)
     def __exit__(self, exc_type, exc_val, exc_tb):
         pass
 
