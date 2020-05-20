@@ -1,3 +1,8 @@
 动态规划:
 yingbi:
+设f(n)代表凑出n需要的最少的张数
 f(n) = min(f(n-1), f(n-5), f(n-11)) + 1
+
+DAG最短路径问题：
+设f(n)代表每个节点n到终点的最短距离
+f(n) = min(f(n), weight + f(n_succeed))
