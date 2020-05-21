@@ -6,3 +6,11 @@ f(n) = min(f(n-1), f(n-5), f(n-11)) + 1
 DAG最短路径问题：
 设f(n)代表每个节点n到终点的最短距离
 f(n) = min(f(n), weight + f(n_succeed))
+
+LIS最长单调上升子序列长度问题：
+设f(n)代表每个节点n处时，所包含当前节点n的最长子序列
+f(n) = max f(max{n-m}) if n > n-m
+
+skiing问题：
+设f(i,j)为当前点到底端所需要的最长路径
+f(i,j) = max{f(i+1,j), f(i-1,j), f(i, j+1), f(i, j-1)} + 1
