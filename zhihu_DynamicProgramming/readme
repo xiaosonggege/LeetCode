@@ -14,3 +14,7 @@ f(n) = max f(max{n-m}) if n > n-m
 skiing问题：
 设f(i,j)为当前点到底端所需要的最长路径
 f(i,j) = max{f(i+1,j), f(i-1,j), f(i, j+1), f(i, j-1)} + 1
+
+乌龟棋问题：
+设f(a, b, c)为使用了a张1步牌，b张2步牌，c张3步牌后获得的最大得分
+f(a, b, c) = max(f(a-1, b, c), f(a, b-1, c), f(a, b, c-1)) + A[1*a+2*b+3*c]
