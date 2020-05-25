@@ -15,6 +15,7 @@ class Attri:
         return instance.__dict__[self._name][instance.__dict__['_start'][0]][instance.__dict__['_start'][-1]]
 
 class Skiing:
+    final = Attri('_xuechang')
     def __init__(self):
         self._xuechang = [
             [1, 2, 3, 4, 5],
@@ -29,7 +30,6 @@ class Skiing:
         #记录各个位置是否已获知以各点为终点的最长路径长度
         self._flag = [[0] * self._len for _ in range(self._len)]
         self._start = 2, 2
-    final = Attri('_xuechang')
 
     def sking(self, point:tuple):
         max_route = 0
