@@ -28,5 +28,7 @@ class Change:
         pass
 
 if __name__ == '__main__':
-    with Change(amount=5, coins=[1, 2, 5]) as r:
-        print(r)
+    with Change(amount=5, coins=[1, 2, 5]) as r1:
+        print(r1)
+    with Change(amount=5, coins=[3, 4]) as r2:
+        print(r2)
