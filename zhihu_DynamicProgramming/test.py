@@ -28,5 +28,9 @@ class Name:
 
 
 if __name__ == '__main__':
-    n = Name()
-    print(n.x)
+    a = [1, 2, 3, 4]
+    try:
+        pos = a.index(0)
+    except ValueError:
+        pos = -1
+    print(pos)
