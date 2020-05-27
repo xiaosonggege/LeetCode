@@ -32,3 +32,7 @@ class LengthOfLongestSubstring:
 if __name__ == '__main__':
     l = LengthOfLongestSubstring(s='abcabcbb')
     print(l.finding())
+    l1 = LengthOfLongestSubstring(s='bbbbb')
+    print(l1.finding())
+    l2 = LengthOfLongestSubstring(s='pwwkew')
+    print(l2.finding())
