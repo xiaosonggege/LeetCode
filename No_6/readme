@@ -1,0 +1,1 @@
+寻找数学规律，复杂度为o(numRow*(len(s)/numRow))=o(len(s))
