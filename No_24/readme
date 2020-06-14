@@ -1,0 +1,2 @@
+move1适中保持其next指向move2的next，方便move2向后移动；
+move3适中保持贴在已经反转好的链表表头(非头指针)处，确保move2的next可以指向它
