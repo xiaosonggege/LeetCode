@@ -48,7 +48,7 @@ class Reverselist(Linked):
         super().__init__(nums=nums)
         # self._head = head
         self._head_new = None
-        self._head = self.create()
+        self._head = head if head is not None else self.create()
     def reverse(self):
         if self._head is not None:
             move1 = self._head.next
@@ -64,7 +64,7 @@ class Reverselist(Linked):
     def __enter__(self):
         self.reverse()
         self.print(head=self._head_new)
-        return self
+        return self._head_new
     def __exit__(self, exc_type, exc_val, exc_tb):
         pass
 
