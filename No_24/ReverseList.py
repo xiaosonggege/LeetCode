@@ -35,8 +35,9 @@ class Linked:
     def print(self, head):
         m = head
         while m is not None:
-            print(m.value)
+            print(m.value, end=' ')
             m = m.next
+        print()
     def create(self):
         for i in reversed(self._nums):
             m = Node(value=i, next=self._head.next)
@@ -63,7 +64,7 @@ class Reverselist(Linked):
 
     def __enter__(self):
         self.reverse()
-        self.print(head=self._head_new)
+        # self.print(head=self._head_new)
         return self._head_new
     def __exit__(self, exc_type, exc_val, exc_tb):
         pass
