@@ -28,19 +28,36 @@ class Node:
         self._next = val
 
 class Linked:
-    def __init__(self, nums:list):
+    def __init__(self, nums:list=None):
         self._nums = nums
         self._head = Node(value=None)
 
     def print(self, head):
         m = head
-        while m is not None:
+        count = 0
+        while m is not None and count < 2 * len(self._nums):
             print(m.value, end=' ')
             m = m.next
+            count += 1
         print()
-    def create(self):
+    def create(self, end:int=None):
+        '''
+        end为尾结点地址，建立循环链表时使用
+        '''
+        if end is not None:
+            pos = 0
+            end_node = None
         for i in reversed(self._nums):
             m = Node(value=i, next=self._head.next)
+            if end is not None:
+                if pos == 0:
+                    end_node = m
+                    pos += 1
+                elif len(self._nums) - pos > end + 1:
+                    pos += 1
+                elif len(self._nums) - pos == end + 1:
+                    end_node.next = m
+                    pos += 1
             self._head.next = m
         return self._head
 
