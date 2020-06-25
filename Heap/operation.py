@@ -57,34 +57,75 @@ class Heap:
         pass
 
 class PriorityQueue(Heap):
-    def __init__(self, nums:list):
+    def __init__(self, nums:list, queue:list):
+        '''
+        @param nums: 任务等级序列
+        @param queue: 任务序列
+        '''
         super().__init__(nums=nums)
-        pass
-    def insert(self, x):
+        self._dict = {i:j for i, j in zip(self._nums, queue)}
+
+    def insert(self, *group):
         '''
         入队
         '''
-        pass
+        self.build_max_heap() # O(nlogn)
+        num, task = group
+        self._dict[num] = task
+        self._nums.append(num)
+        self._length_size += 1
+        i = self._length_size
+        while self._nums[self._parient(i)-1] < self._nums[i-1] and i-1 > 0: # O(logn)
+            self._nums[self._parient(i)-1], self._nums[i-1] = self._nums[i-1], self._nums[self._parient(i)-1]
+            i = self._parient(i)
+        return
 
-    def maximum(self):
+    def maximum(self): # O(nlogn)
         '''
         返回队列中最大元素
         '''
-        pass
+        #构建最大堆
+        self.build_max_heap() # O(nlogn)
+        #返回堆顶元素
+        return self._dict[self._nums[0]]
 
-    def extract_max(self):
+    def extract_max(self): # O(nlogn)
         '''
         提取队列中最大元素
         '''
-        pass
+        #构建最大堆
+        self.build_max_heap() # O(nlogn)
+        #将最优任务从堆中去除
+        self._nums[0], self._nums[self._length_size-1] = self._nums[self._length_size-1], self._nums[0]
+        max = self._nums[self._length_size - 1]
+        self._length_size -= 1
+        self.max_heapify(1) # O(logn)
+        return self._dict[max]
 
-    def increase_key(self, x, k):
+    def increase_key(self, x, k): # O(nlogn)
         '''
         将队列中元素关键字增加到k
         '''
-        pass
+        self.build_max_heap() # O(nlogn)
+        indice = self._nums.index(x) # O(logn)
+        self._nums[indice] = k
+        task = self._dict.pop(x)
+        self._dict[k] = task
+        i = indice + 1
+        while self._nums[self._parient(i) - 1] < self._nums[i - 1] and i - 1 > 0:  # O(logn)
+            self._nums[self._parient(i) - 1], self._nums[i - 1] = self._nums[i - 1], self._nums[self._parient(i) - 1]
+            i = self._parient(i)
+        return
 
+
+    def __enter__(self):
+        # return self.maximum()
+        # return self.extract_max()
+        # self.insert(6, 'f')
+        self.increase_key(4, 5)
 
 if __name__ == '__main__':
-    with Heap(nums=[1, 2, 3, 4, 5]) as h1:
-        pass
+    # with Heap(nums=[1, 2, 3, 4, 5]) as h1:
+    #     pass
+    with PriorityQueue(nums=[1, 2, 3, 4, 5], queue=['a', 'b', 'c', 'd', 'e']) as P1:
+        print(P1)
