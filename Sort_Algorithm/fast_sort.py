@@ -19,7 +19,7 @@ class Fastsort:
         :param r:尾地址
         '''
         i, j = p, p + 1
-        while j <= len(self._nums)-2:
+        while j <= len(self._nums)-2: # O(n)
             if self._nums[j] < self._nums[r]:
                 i += 1
                 if i != j:
